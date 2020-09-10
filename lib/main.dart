@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iou/contacts_page.dart';
 import 'package:provider/provider.dart';
-import 'Routes/routes.dart';
 
-import 'root_page.dart';
-import 'Screens/login.dart';
-import 'Screens/signup.dart';
-import 'home_page.dart';
-import 'contacts_page.dart';
-import 'auth.dart';
-import 'Models/user.dart';
+import 'package:iou/Views/root_view.dart';
+import 'package:iou/Services/auth.dart';
+import 'package:iou/Models/user.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,29 +16,24 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
         value: Auth().user,
         child: MaterialApp(
-            title: 'iou',
-            theme: ThemeData(
-              // This is the theme of your application.
-              //
-              // Try running your application with "flutter run". You'll see the
-              // application has a blue toolbar. Then, without quitting the app, try
-              // changing the primarySwatch below to Colors.green and then invoke
-              // "hot reload" (press "r" in the console where you ran "flutter run",
-              // or simply save your changes to "hot reload" in a Flutter IDE).
-              // Notice that the counter didn't reset back to zero; the application
-              // is not restarted.
-              primarySwatch: Colors.blue,
-              // This makes the visual density adapt to the platform that you run
-              // the app on. For desktop platforms, the controls will be smaller and
-              // closer together (more dense) than on mobile platforms.
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: RootPage(),
-            routes: {
-              Routes.home: (context) => HomePage(),
-              Routes.login: (context) => Login(),
-              Routes.signup: (context) => Signup(),
-              Routes.contacts: (context) => ContactsPage()
-            }));
+          title: 'iou',
+          theme: ThemeData(
+            // This is the theme of your application.
+            //
+            // Try running your application with "flutter run". You'll see the
+            // application has a blue toolbar. Then, without quitting the app, try
+            // changing the primarySwatch below to Colors.green and then invoke
+            // "hot reload" (press "r" in the console where you ran "flutter run",
+            // or simply save your changes to "hot reload" in a Flutter IDE).
+            // Notice that the counter didn't reset back to zero; the application
+            // is not restarted.
+            primarySwatch: Colors.blue,
+            // This makes the visual density adapt to the platform that you run
+            // the app on. For desktop platforms, the controls will be smaller and
+            // closer together (more dense) than on mobile platforms.
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: RootView(),
+        ));
   }
 }

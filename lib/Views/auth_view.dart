@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iou/Screens/login.dart';
-import 'package:iou/Screens/signup.dart';
+import 'package:iou/Pages/login.dart';
+import 'package:iou/Pages/signup.dart';
 
-class AuthForm extends StatefulWidget {
+class AuthView extends StatefulWidget {
   @override
-  _AuthFormState createState() => _AuthFormState();
+  _AuthViewState createState() => _AuthViewState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthViewState extends State<AuthView> {
   bool showLoginForm = true;
   void toggleForm() {
     setState(() {
