@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "572444579725",
+    "firebase_url": "https://iou-app-2be64.firebaseio.com",
+    "project_id": "iou-app-2be64",
+    "storage_bucket": "iou-app-2be64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572444579725:android:ae735e6a3adc19cf47cfc4",
+        "android_client_info": {
+          "package_name": "com.sylvesteryue.iou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572444579725-uul8vpr8llh0dib6m091felbog6ige19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt0ghnrO8Lyug90i43GT6u_XNvMUKMQAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572444579725-uul8vpr8llh0dib6m091felbog6ige19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
