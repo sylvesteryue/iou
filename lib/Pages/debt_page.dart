@@ -4,8 +4,13 @@ class DebtPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new Center(
-      child: new Text("Hello this is your debt"),
+    return Scaffold(
+      body: Center(child: Text("You don't owe any money!")),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        tooltip: 'Increment Counter',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

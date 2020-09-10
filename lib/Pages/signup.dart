@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:iou/auth.dart';
+import 'package:iou/Services/auth.dart';
 
 class Signup extends StatefulWidget {
   final Function toggleForm;

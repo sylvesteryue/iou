@@ -4,8 +4,8 @@ import 'package:iou/Pages/debt_page.dart';
 import 'package:iou/Pages/friends_page.dart';
 import 'package:iou/Pages/home_page.dart';
 
-import 'Widgets/drawer.dart';
-import 'package:iou/auth.dart';
+import '../Widgets/drawer.dart';
+import 'package:iou/Services/auth.dart';
 
 class HomeView extends StatefulWidget {
   @override
