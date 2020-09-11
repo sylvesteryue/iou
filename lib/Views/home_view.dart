@@ -6,8 +6,11 @@ import 'package:iou/Pages/home_page.dart';
 
 import '../Widgets/drawer.dart';
 import 'package:iou/Services/auth.dart';
+import 'package:iou/Models/user.dart';
 
 class HomeView extends StatefulWidget {
+  final User user;
+  HomeView({this.user});
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -67,7 +70,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: AppDrawer(onSelectItem: _onSelectItem, logout: _logout),
+        drawer: AppDrawer(
+            onSelectItem: _onSelectItem, logout: _logout, user: widget.user),
         appBar: AppBar(
           title: Text(_title),
           // actions: <Widget>[

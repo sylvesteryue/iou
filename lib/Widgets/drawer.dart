@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:iou/Models/user.dart';
+
 class AppDrawer extends StatelessWidget {
   final Function onSelectItem;
   final Function logout;
-  AppDrawer({this.onSelectItem, this.logout});
+  final User user;
+  AppDrawer({this.onSelectItem, this.logout, this.user});
 
   Widget _createFooterItem(
       {IconData icon, String text, GestureTapCallback onTap}) {
@@ -25,10 +28,10 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
         child: Column(children: <Widget>[
-      DrawerHeader(
-          decoration: BoxDecoration(
-        color: Colors.blue,
-      )),
+      UserAccountsDrawerHeader(
+        accountEmail: Text(user.email),
+        accountName: Text(user.uid),
+      ),
       ListTile(
           title: Text('Home'),
           onTap: () {

@@ -11,7 +11,7 @@ class RootView extends StatelessWidget {
 
     if (user != null) {
       // signed in
-      return HomeView();
+      return HomeView(user: user);
     } else {
       return AuthView();
     }
