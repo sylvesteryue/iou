@@ -14,6 +14,8 @@ class _SignupState extends State<Signup> {
   final formKey = GlobalKey<FormState>();
 
   String email = '';
+  String fname = '';
+  String lname = '';
   String password = '';
   String confirmPassword = '';
 
@@ -55,6 +57,22 @@ class _SignupState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
+    final fnameField = TextFormField(
+        obscureText: false,
+        onChanged: (val) => setState(() => fname = val),
+        decoration: InputDecoration(
+          hintText: 'First Name',
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        ));
+
+    final lnameField = TextFormField(
+        obscureText: false,
+        onChanged: (val) => setState(() => lname = val),
+        decoration: InputDecoration(
+          hintText: 'Last Name',
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        ));
+
     final emailField = TextFormField(
         obscureText: false,
         validator: emailValidator,
@@ -98,7 +116,7 @@ class _SignupState extends State<Signup> {
         onPressed: () async {
           if (formKey.currentState.validate()) {
             if (password == confirmPassword) {
-              dynamic result = await auth.signup(email, password);
+              dynamic result = await auth.signup(email, password, fname, lname);
               if (result == null) {
                 showError('Please enter valid email');
               }
@@ -122,6 +140,10 @@ class _SignupState extends State<Signup> {
                         // crossAxisAlignment: CrossAxisAlignment.center,
                         // mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+                          fnameField,
+                          SizedBox(height: 8.0),
+                          lnameField,
+                          SizedBox(height: 8.0),
                           emailField,
                           SizedBox(height: 8.0),
                           passwordField,

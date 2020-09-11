@@ -6,6 +6,7 @@ import 'package:iou/Pages/home_page.dart';
 
 import '../Widgets/drawer.dart';
 import 'package:iou/Services/auth.dart';
+import 'package:iou/Services/firestore_service.dart';
 import 'package:iou/Models/user.dart';
 
 class HomeView extends StatefulWidget {

@@ -29,7 +29,7 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
         child: Column(children: <Widget>[
       UserAccountsDrawerHeader(
-        accountEmail: Text(user.email),
+        accountEmail: Text("testing@gmail.com"),
         accountName: Text(user.uid),
       ),
       ListTile(

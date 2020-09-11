@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:iou/Services/firestore_service.dart';
 import '../Models/user.dart';
 
 class Auth {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirestoreService _firestoreService = FirestoreService();
 
   User userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid, email: user.email) : null;
+    return user != null ? User(uid: user.uid) : null;
   }
 
   Stream<User> get user {
@@ -26,11 +28,15 @@ class Auth {
     }
   }
 
-  Future signup(String email, String password) async {
+  Future signup(
+      String email, String password, String fname, String lname) async {
     try {
       FirebaseUser user = (await firebaseAuth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
+
+      await _firestoreService.createUser(
+          UserData(uid: user.uid, email: email, fname: fname, lname: lname));
 
       return userFromFirebaseUser(user);
     } catch (e) {
