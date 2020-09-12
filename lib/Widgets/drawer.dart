@@ -29,8 +29,8 @@ class AppDrawer extends StatelessWidget {
     return Drawer(
         child: Column(children: <Widget>[
       UserAccountsDrawerHeader(
-        accountEmail: Text("testing@gmail.com"),
-        accountName: Text(user.uid),
+        accountEmail: Text(user.email),
+        accountName: Text(user.fname + " " + user.lname),
       ),
       ListTile(
           title: Text('Home'),

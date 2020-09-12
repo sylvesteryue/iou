@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iou/Pages/add_records_page.dart';
 
 class DebtPage extends StatelessWidget {
   @override
@@ -6,7 +7,10 @@ class DebtPage extends StatelessWidget {
     return Scaffold(
       body: Column(children: <Widget>[_debtListView()]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddRecordsPage()))
+        },
         tooltip: 'Increment Counter',
         child: const Icon(Icons.add),
       ),

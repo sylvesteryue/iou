@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'package:iou/Views/root_view.dart';
 import 'package:iou/Services/auth.dart';
-import 'package:iou/Models/user.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User>.value(
+    return StreamProvider<FirebaseUser>.value(
         value: Auth().user,
         child: MaterialApp(
           title: 'iou',

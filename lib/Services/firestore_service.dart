@@ -8,32 +8,32 @@ class FirestoreService {
   final CollectionReference _usersCollectionReference =
       Firestore.instance.collection("users");
 
-  Future createUser(UserData user) async {
+  Future createUser(User user) async {
     try {
       await _usersCollectionReference.document(user.uid).setData(user.toJson());
     } catch (e) {
-      return e.message;
+      return e;
     }
   }
 
   Future getUser(String uid) async {
     try {
       var userData = await _usersCollectionReference.document(uid).get();
-      return UserData.fromData(userData.data);
+      return User.fromData(userData.data);
     } catch (e) {
       return e.message;
     }
   }
 
-  Stream<UserData> get user {
+  Stream<User> get user {
     return _usersCollectionReference
         .document(uid)
         .snapshots()
         .map(_userDataFromSnapshot);
   }
 
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
+  User _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return User(
         uid: snapshot.data['uid'],
         email: snapshot.data['email'],
         fname: snapshot.data['fname'],

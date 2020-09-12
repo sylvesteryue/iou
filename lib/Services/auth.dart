@@ -1,18 +1,29 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:iou/Services/firestore_service.dart';
+import 'package:iou/Services/database_service.dart';
+//import 'package:iou/Services/firestore_service.dart';
 import '../Models/user.dart';
 
 class Auth {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  final FirestoreService _firestoreService = FirestoreService();
+  final DatabaseService _databaseService = DatabaseService();
 
-  User userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  User currentUser;
+
+  //final User _currentUser;
+
+  FirebaseUser userFromFirebaseUser(FirebaseUser user) {
+    return user != null ? user : null;
   }
 
-  Stream<User> get user {
+  Stream<FirebaseUser> get user {
     return firebaseAuth.onAuthStateChanged.map(userFromFirebaseUser);
+  }
+
+  Future populateCurrentUser(FirebaseUser user) async {
+    if (user != null) {
+      return currentUser = await _databaseService.getUser(user.uid);
+    }
   }
 
   Future login(String email, String password) async {
@@ -35,8 +46,8 @@ class Auth {
               email: email, password: password))
           .user;
 
-      await _firestoreService.createUser(
-          UserData(uid: user.uid, email: email, fname: fname, lname: lname));
+      await _databaseService.addUser(
+          User(uid: user.uid, email: email, fname: fname, lname: lname));
 
       return userFromFirebaseUser(user);
     } catch (e) {
@@ -45,9 +56,10 @@ class Auth {
     }
   }
 
-  Future currentUser() async {
+  Future getCurrentUser() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    return userFromFirebaseUser(user);
+    await populateCurrentUser(user);
+    return currentUser;
   }
 
   Future logout() async {

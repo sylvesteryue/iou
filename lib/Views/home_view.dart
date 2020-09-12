@@ -6,21 +6,32 @@ import 'package:iou/Pages/home_page.dart';
 
 import '../Widgets/drawer.dart';
 import 'package:iou/Services/auth.dart';
-import 'package:iou/Services/firestore_service.dart';
+import 'package:iou/Services/database_service.dart';
 import 'package:iou/Models/user.dart';
 
 class HomeView extends StatefulWidget {
-  final User user;
-  HomeView({this.user});
+  final String uid;
+  HomeView({this.uid});
   @override
   _HomeViewState createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
   final Auth auth = Auth();
+  User currentUser;
+  final DatabaseService _databaseService = DatabaseService();
 
   int _selectedDrawerIndex = 0;
   String _title = 'Home';
+
+  @override
+  void initState() {
+    //getCurrentUser();
+    auth.getCurrentUser().then((user) {
+      setState(() => currentUser = user);
+    });
+    super.initState();
+  }
 
   _getDrawerItem(int pos) {
     switch (pos) {
@@ -72,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: AppDrawer(
-            onSelectItem: _onSelectItem, logout: _logout, user: widget.user),
+            onSelectItem: _onSelectItem, logout: _logout, user: currentUser),
         appBar: AppBar(
           title: Text(_title),
           // actions: <Widget>[
