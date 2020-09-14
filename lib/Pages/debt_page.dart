@@ -11,7 +11,7 @@ class DebtPage extends StatelessWidget {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => AddRecordsPage()))
         },
-        tooltip: 'Increment Counter',
+        tooltip: 'Add Record',
         child: const Icon(Icons.add),
       ),
     );

@@ -19,14 +19,12 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   final Auth auth = Auth();
   User currentUser;
-  final DatabaseService _databaseService = DatabaseService();
 
   int _selectedDrawerIndex = 0;
   String _title = 'Home';
 
   @override
   void initState() {
-    //getCurrentUser();
     auth.getCurrentUser().then((user) {
       setState(() => currentUser = user);
     });
@@ -86,28 +84,7 @@ class _HomeViewState extends State<HomeView> {
             onSelectItem: _onSelectItem, logout: _logout, user: currentUser),
         appBar: AppBar(
           title: Text(_title),
-          // actions: <Widget>[
-          //   FlatButton.icon(
-          //       icon: Icon(Icons.person),
-          //       label: Text('Logout'),
-          //       onPressed: () async {
-          //         await auth.logout();
-          //       })
-          // ],
         ),
-        body: _getDrawerItem(_selectedDrawerIndex)
-        // bottomNavigationBar: BottomNavigationBar(
-        //   items: [
-        //     BottomNavigationBarItem(
-        //         icon: new Icon(Icons.home), title: new Text("Home")),
-        //     BottomNavigationBarItem(
-        //         icon: new Icon(Icons.contacts), title: new Text("Contacts")),
-        //     BottomNavigationBarItem(
-        //         icon: new Icon(Icons.account_balance),
-        //         title: new Text("Transactions"))
-        //   ],
-        // ),
-        // body: RequestsList()
-        );
+        body: _getDrawerItem(_selectedDrawerIndex));
   }
 }
