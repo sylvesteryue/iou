@@ -1,11 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-// class User {
-//   final String uid;
-//   User({this.uid});
-// }
-
 class User {
   final String uid;
   String email;

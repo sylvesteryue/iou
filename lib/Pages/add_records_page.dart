@@ -12,6 +12,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   String friend = '';
   String money = '';
   String description = '';
+  String _type = '';
 
   String moneyValidator(String value) {
     Pattern pattern = r"^[1-9][0-9]*(\.[0-9]{1,2})?$";
@@ -62,6 +63,18 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         onPressed: () {},
         child: Text("Submit", textAlign: TextAlign.center));
+
+    final chooseTypeDropdown = DropdownButton(
+        value: _type,
+        items: [
+          DropdownMenuItem(child: Text("You owe"), value: "Debt"),
+          DropdownMenuItem(child: Text("Owes you"), value: "Credit")
+        ],
+        onChanged: (value) {
+          setState(() {
+            _type = value;
+          });
+        });
 
     return Scaffold(
       appBar: AppBar(title: Text("Add Record")),
