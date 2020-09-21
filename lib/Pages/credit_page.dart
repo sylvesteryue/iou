@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:iou/Pages/add_records_page.dart';
 
 class CreditPage extends StatelessWidget {
+  final String userUid;
+  CreditPage({this.userUid});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

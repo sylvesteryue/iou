@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:iou/Pages/add_records_page.dart';
 
 class DebtPage extends StatelessWidget {
+  final String userUid;
+  DebtPage({this.userUid});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: <Widget>[_debtListView()]),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddRecordsPage()))
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddRecordsPage(
+                        userUid: userUid,
+                      )))
         },
         tooltip: 'Add Record',
         child: const Icon(Icons.add),

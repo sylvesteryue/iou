@@ -11,7 +11,7 @@ import 'package:iou/Models/user.dart';
 
 class HomeView extends StatefulWidget {
   final String uid;
-  HomeView({this.uid});
+  HomeView(this.uid);
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -38,9 +38,9 @@ class _HomeViewState extends State<HomeView> {
       case 1:
         return FriendsPage();
       case 2:
-        return DebtPage();
+        return DebtPage(userUid: widget.uid);
       case 3:
-        return CreditPage();
+        return CreditPage(userUid: widget.uid);
     }
   }
 

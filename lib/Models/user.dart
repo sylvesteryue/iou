@@ -3,7 +3,7 @@ class User {
   String email;
   String fname;
   String lname;
-  List<User> friends;
+  List<String> friends;
 
   User({this.uid, this.email, this.fname, this.lname});
 
@@ -11,7 +11,8 @@ class User {
       : uid = data['uid'],
         email = data['email'],
         fname = data['fname'],
-        lname = data['lname'];
+        lname = data['lname'],
+        friends = <String>[];
 
   Map<String, dynamic> toJson() {
     return {'uid': uid, 'email': email, 'fname': fname, 'lname': lname};

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:iou/Services/database_service.dart';
+import 'package:iou/Models/user.dart';
+
 class AddRecordsPage extends StatefulWidget {
+  final String userUid;
+  AddRecordsPage({this.userUid});
   @override
   _AddRecordsPageState createState() => _AddRecordsPageState();
 }
 
 class _AddRecordsPageState extends State<AddRecordsPage> {
   final _formKey = GlobalKey<FormState>();
+  final _database = DatabaseService();
 
   String friend = '';
+  String friendUid = '';
   String money = '';
   String description = '';
   String _type = '';
@@ -37,13 +44,40 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     }
   }
 
+  Future<List<User>> _getFriends() async {
+    var currentUser = await _database.getUser(widget.userUid);
+  }
+
   // void searchUser(String searchText) {
 
   // }
 
+  // void _chooseFriendBottomModalSheet(context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (BuildContext bc) {
+  //         return Container(
+  //             height: MediaQuery.of(context).size.height * .60,
+  //             child: Padding(padding: const EdgeInsets.all(8.0)));
+  //       });
+  // }
+
   @override
   Widget build(BuildContext context) {
-    final friendTextField = TextFormField();
+    final chooseFriendDropdown = FutureBuilder(
+      future: _getFriends(),
+      builder: (context, snapshot) {
+        return DropdownButton(
+            hint: Text("Choose your friend"),
+            value: 'Choose your friend',
+            items: [],
+            onChanged: (value) {
+              setState(() {
+                friendUid = value;
+              });
+            });
+      },
+    );
 
     final moneyTextField = TextFormField(
         validator: moneyValidator,
@@ -88,7 +122,8 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      friendTextField,
+                      chooseTypeDropdown,
+                      chooseFriendDropdown,
                       moneyTextField,
                       descriptionTextField,
                       submitButton
