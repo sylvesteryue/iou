@@ -23,28 +23,46 @@ class FriendsPage extends StatelessWidget {
     return friendsList;
   }
 
-  Widget _friendsListView() {
+  Widget _friendsList() {
+    return FutureBuilder<List<User>>(
+        future: _getFriendsList(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return new Text('loading');
+            default:
+              List<User> friends = snapshot.data ?? [];
+              return _friendsListView(friends);
+          }
+        });
+  }
+
+  Widget _friendsListView(List<User> friends) {
     return new Container(
         child: Flexible(
             child: new ListView.builder(
                 itemBuilder: (context, index) {
-                  return _friendsListItem(index);
+                  return _friendsListItem(friends[index], index);
                 },
-                itemCount: 10)));
+                itemCount: friends.length)));
   }
 
-  Widget _friendsListItem(int index) {
+  Widget _friendsListItem(User friend, int index) {
     return new Container(
         child: ListTile(
-      leading: new Hero(tag: index, child: new CircleAvatar(child: Text("SY"))),
-      title: new Text("testing"),
+      leading: new Hero(
+          tag: index,
+          child:
+              new CircleAvatar(child: Text(friend.fname[0] + friend.lname[0]))),
+      title: new Text(friend.fname + " " + friend.lname),
     ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: <Widget>[_friendsListView()]),
+      body: Column(children: <Widget>[_friendsList()]),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},
         tooltip: 'Add Friends',
