@@ -8,6 +8,7 @@ import '../Widgets/drawer.dart';
 import 'package:iou/Services/auth.dart';
 import 'package:iou/Services/database_service.dart';
 import 'package:iou/Models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomeView extends StatefulWidget {
   final String uid;
@@ -36,7 +37,9 @@ class _HomeViewState extends State<HomeView> {
       case 0:
         return HomePage();
       case 1:
-        return FriendsPage();
+        return FriendsPage(
+          userUid: widget.uid,
+        );
       case 2:
         return DebtPage(userUid: widget.uid);
       case 3:

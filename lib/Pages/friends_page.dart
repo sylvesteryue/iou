@@ -12,7 +12,7 @@ class FriendsPage extends StatelessWidget {
   Future<List<User>> _getFriendsList() async {
     var currentUser = await _database.getUser(userUid);
 
-    List<User> friendsList;
+    List<User> friendsList = [];
 
     for (var friendUid in currentUser.friends) {
       User friend = await _database.getUser(friendUid);
@@ -56,6 +56,7 @@ class FriendsPage extends StatelessWidget {
           child:
               new CircleAvatar(child: Text(friend.fname[0] + friend.lname[0]))),
       title: new Text(friend.fname + " " + friend.lname),
+      subtitle: new Text(friend.email),
     ));
   }
 

@@ -46,6 +46,18 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 
   Future<List<User>> _getFriends() async {
     var currentUser = await _database.getUser(widget.userUid);
+
+    List<User> friendsList = [];
+
+    //friendsList.add(currentUser);
+
+    for (var friendUid in currentUser.friends) {
+      User friend = await _database.getUser(friendUid);
+
+      friendsList.add(friend);
+    }
+
+    return friendsList;
   }
 
   // void searchUser(String searchText) {
@@ -64,20 +76,29 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final chooseFriendDropdown = FutureBuilder(
-      future: _getFriends(),
-      builder: (context, snapshot) {
-        return DropdownButton(
-            hint: Text("Choose your friend"),
-            value: 'Choose your friend',
-            items: [],
-            onChanged: (value) {
-              setState(() {
-                friendUid = value;
-              });
-            });
-      },
-    );
+    final chooseFriendDropdown = FutureBuilder<List<User>>(
+        future: _getFriends(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+            //return new Text('loading');
+            default:
+              return new DropdownButton(
+                  hint: Text("Choose your friend"),
+                  value: friendUid,
+                  items: snapshot.data.map((friend) {
+                    return DropdownMenuItem<String>(
+                        child: Text(friend.fname + " " + friend.lname),
+                        value: friend.uid);
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      friendUid = value;
+                    });
+                  });
+          }
+        });
 
     final moneyTextField = TextFormField(
         validator: moneyValidator,
@@ -98,7 +119,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         onPressed: () {},
         child: Text("Submit", textAlign: TextAlign.center));
 
-    final chooseTypeDropdown = DropdownButton(
+    final chooseTypeDropdown = new DropdownButton(
         value: _type,
         items: [
           DropdownMenuItem(child: Text("You owe"), value: "Debt"),

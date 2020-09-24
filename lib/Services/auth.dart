@@ -46,8 +46,12 @@ class Auth {
               email: email, password: password))
           .user;
 
-      await _databaseService.addUser(
-          User(uid: user.uid, email: email, fname: fname, lname: lname));
+      await _databaseService.addUser(User(
+          uid: user.uid,
+          email: email,
+          fname: fname,
+          lname: lname,
+          friends: <String>[]));
 
       return userFromFirebaseUser(user);
     } catch (e) {
@@ -57,9 +61,9 @@ class Auth {
   }
 
   Future getCurrentUser() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    await populateCurrentUser(user);
-    return currentUser;
+    FirebaseUser user = await firebaseAuth.currentUser();
+    //await populateCurrentUser(user);
+    return await _databaseService.getUser(user.uid);
   }
 
   Future logout() async {

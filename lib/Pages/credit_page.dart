@@ -12,8 +12,10 @@ class CreditPage extends StatelessWidget {
       body: Column(children: <Widget>[_creditListView()]),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddRecordsPage()))
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddRecordsPage(userUid: userUid)))
         },
         tooltip: 'Add Record',
         child: const Icon(Icons.add),
