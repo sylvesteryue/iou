@@ -19,7 +19,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   String friendUid = '';
   String money = '';
   String description = '';
-  String _type = '';
+  String _type = 'Debt';
 
   String moneyValidator(String value) {
     Pattern pattern = r"^[1-9][0-9]*(\.[0-9]{1,2})?$";
