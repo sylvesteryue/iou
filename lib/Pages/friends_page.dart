@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iou/Pages/add_friends_page.dart';
 
 import 'package:iou/Services/database_service.dart';
 import 'package:iou/Models/user.dart';
@@ -30,7 +31,7 @@ class FriendsPage extends StatelessWidget {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-              return new Text('loading');
+              return Center(child: CircularProgressIndicator());
             default:
               List<User> friends = snapshot.data ?? [];
               return _friendsListView(friends);
@@ -51,13 +52,15 @@ class FriendsPage extends StatelessWidget {
   Widget _friendsListItem(User friend, int index) {
     return new Container(
         child: ListTile(
-      leading: new Hero(
-          tag: index,
-          child:
-              new CircleAvatar(child: Text(friend.fname[0] + friend.lname[0]))),
-      title: new Text(friend.fname + " " + friend.lname),
-      subtitle: new Text(friend.email),
-    ));
+            leading: new Hero(
+                tag: index,
+                child: new CircleAvatar(
+                    child: Text(friend.fname[0] + friend.lname[0]))),
+            title: new Text(friend.fname + " " + friend.lname),
+            subtitle: new Text(friend.email),
+            onTap: () {
+              print(friend.uid);
+            }));
   }
 
   @override
@@ -65,7 +68,10 @@ class FriendsPage extends StatelessWidget {
     return Scaffold(
       body: Column(children: <Widget>[_friendsList()]),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddFriends(userUid)))
+        },
         tooltip: 'Add Friends',
         child: const Icon(Icons.add),
       ),

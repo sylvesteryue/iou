@@ -26,4 +26,29 @@ class DatabaseService {
       return null;
     }
   }
+
+  Future<List<User>> getAllUsers() async {
+    try {
+      var users = (await _usersCollectionReference.getDocuments()).documents;
+      return users.map((userData) => User.fromData(userData.data)).toList();
+    } catch (e) {
+      //print(e);
+      return null;
+    }
+  }
+
+  Future<List<User>> searchUser(String nameQuery) async {
+    try {
+      var users = (await _usersCollectionReference
+              .where("fname",
+                  isEqualTo:
+                      nameQuery.toLowerCase().substring(0, 1).toUpperCase())
+              .getDocuments())
+          .documents;
+      return users.map((userData) => User.fromData(userData.data)).toList();
+    } catch (e) {
+      //print(e);
+      return null;
+    }
+  }
 }
