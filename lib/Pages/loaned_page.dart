@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:iou/Pages/add_records_page.dart';
 
-class CreditPage extends StatelessWidget {
+class LoanedPage extends StatelessWidget {
   final String userUid;
-  CreditPage({this.userUid});
+  LoanedPage({this.userUid});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: <Widget>[_creditListView()]),
+      body: Column(children: <Widget>[_loanedListView()]),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           Navigator.push(
@@ -23,17 +23,17 @@ class CreditPage extends StatelessWidget {
     );
   }
 
-  Widget _creditListView() {
+  Widget _loanedListView() {
     return new Container(
         child: Flexible(
             child: new ListView.builder(
                 itemBuilder: (context, index) {
-                  return _getCreditListItem(index);
+                  return _getloanedListItem(index);
                 },
                 itemCount: 10)));
   }
 
-  Widget _getCreditListItem(int index) {
+  Widget _getloanedListItem(int index) {
     return new Container(
         margin: const EdgeInsets.only(top: 5.0),
         child: new Card(

@@ -1,19 +1,19 @@
 class Record {
-  String creditorUid;
+  String loanerUid;
   String debtorUid;
   int moneyAmt;
   String description;
   String type;
 
   Record(
-      {this.creditorUid,
+      {this.loanerUid,
       this.debtorUid,
       this.moneyAmt,
       this.description,
       this.type});
 
   Record.fromData(Map<String, dynamic> data)
-      : this.creditorUid = data['creditor_uid'],
+      : this.loanerUid = data['loaner_uid'],
         this.debtorUid = data['debtor_uid'],
         this.description = data['description'],
         this.moneyAmt = data['money_amount'],
@@ -21,7 +21,7 @@ class Record {
 
   Map<String, dynamic> toJson() {
     return {
-      'creditor_uid': creditorUid,
+      'loaner_uid': loanerUid,
       'debtor_uid': debtorUid,
       'description': description,
       'money_amount': moneyAmt,

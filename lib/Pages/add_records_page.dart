@@ -123,7 +123,7 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
         value: _type,
         items: [
           DropdownMenuItem(child: Text("You owe"), value: "Debt"),
-          DropdownMenuItem(child: Text("Owes you"), value: "Credit")
+          DropdownMenuItem(child: Text("Owes you"), value: "Loaned")
         ],
         onChanged: (value) {
           setState(() {

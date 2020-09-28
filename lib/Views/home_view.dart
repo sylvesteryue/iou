@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iou/Pages/credit_page.dart';
+import 'package:iou/Pages/loaned_page.dart';
 import 'package:iou/Pages/debt_page.dart';
 import 'package:iou/Pages/friends_page.dart';
 import 'package:iou/Pages/home_page.dart';
@@ -43,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
       case 2:
         return DebtPage(userUid: widget.uid);
       case 3:
-        return CreditPage(userUid: widget.uid);
+        return LoanedPage(userUid: widget.uid);
     }
   }
 
@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
           break;
         case 3:
           {
-            _title = 'Credit';
+            _title = 'Loaned';
           }
           break;
       }
