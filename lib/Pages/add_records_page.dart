@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:iou/Services/database_service.dart';
 import 'package:iou/Models/user.dart';
+import 'package:iou/Models/record.dart';
 
 class AddRecordsPage extends StatefulWidget {
   final String userUid;
@@ -15,10 +16,10 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
   final _formKey = GlobalKey<FormState>();
   final _database = DatabaseService();
 
-  String friend = '';
+  User friend;
   String friendUid = '';
   String money = '';
-  String description = '';
+  String _description = '';
   String _type = 'Debt';
 
   String moneyValidator(String value) {
@@ -76,25 +77,31 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
+    //modify for better results
     final chooseFriendDropdown = FutureBuilder<List<User>>(
         future: _getFriends(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
             case ConnectionState.waiting:
-            //return new Text('loading');
+              return new Text('loading');
             default:
               return new DropdownButton(
                   hint: Text("Choose your friend"),
-                  value: friendUid,
+                  //value: friendUid,
                   items: snapshot.data.map((friend) {
-                    return DropdownMenuItem<String>(
-                        child: Text(friend.fname + " " + friend.lname),
-                        value: friend.uid);
+                    return DropdownMenuItem<User>(
+                        child: Text(friend.fname +
+                            " " +
+                            friend.lname +
+                            " (" +
+                            friend.email +
+                            ")"),
+                        value: friend);
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
-                      friendUid = value;
+                      friend = value;
                     });
                   });
           }
@@ -112,11 +119,24 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
     final descriptionTextField = TextFormField(
         maxLines: 8,
         validator: descriptionValidator,
-        onChanged: (val) => setState(() => description = val));
+        onChanged: (val) => setState(() => _description = val));
 
     final submitButton = OutlineButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        onPressed: () {},
+        onPressed: () {
+          if (_type == "Debt")
+            _database.addRecord(Record(
+                debtorUid: widget.userUid,
+                description: _description,
+                loanerUid: friendUid,
+                moneyAmt: int.parse(money)));
+          else
+            _database.addRecord(Record(
+                debtorUid: friendUid,
+                description: _description,
+                loanerUid: widget.userUid,
+                moneyAmt: int.parse(money)));
+        },
         child: Text("Submit", textAlign: TextAlign.center));
 
     final chooseTypeDropdown = new DropdownButton(
@@ -145,6 +165,15 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
                     children: <Widget>[
                       chooseTypeDropdown,
                       chooseFriendDropdown,
+                      SizedBox(height: 20.0),
+                      friend != null
+                          ? Text(friend.fname +
+                              " " +
+                              friend.lname +
+                              " (" +
+                              friend.email +
+                              ")")
+                          : Text("No User selected"),
                       moneyTextField,
                       descriptionTextField,
                       submitButton
