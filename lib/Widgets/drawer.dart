@@ -50,7 +50,7 @@ class AppDrawer extends StatelessWidget {
             onSelectItem(2);
           }),
       ListTile(
-          title: Text('Credit'),
+          title: Text('Loaned'),
           onTap: () {
             onSelectItem(3);
           }),

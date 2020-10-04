@@ -128,14 +128,16 @@ class _AddRecordsPageState extends State<AddRecordsPage> {
             _database.addRecord(Record(
                 debtorUid: widget.userUid,
                 description: _description,
-                loanerUid: friendUid,
-                moneyAmt: int.parse(money)));
+                loanerUid: friend.uid,
+                moneyAmt: double.parse(money)));
           else
             _database.addRecord(Record(
-                debtorUid: friendUid,
+                debtorUid: friend.uid,
                 description: _description,
                 loanerUid: widget.userUid,
-                moneyAmt: int.parse(money)));
+                moneyAmt: double.parse(money)));
+
+          Navigator.pop(context);
         },
         child: Text("Submit", textAlign: TextAlign.center));
 

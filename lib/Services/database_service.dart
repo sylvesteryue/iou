@@ -61,4 +61,34 @@ class DatabaseService {
       return null;
     }
   }
+
+  Future<List<Record>> getUserDebt(String userUid) async {
+    try {
+      var debtList = (await _recordsCollectionReference
+              .where("debtor_uid", isEqualTo: userUid)
+              .getDocuments())
+          .documents;
+
+      return debtList
+          .map((debtRecord) => Record.fromData(debtRecord.data))
+          .toList();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<Record>> getUserLoaned(String userUid) async {
+    try {
+      var loanedList = (await _recordsCollectionReference
+              .where("loaner_uid", isEqualTo: userUid)
+              .getDocuments())
+          .documents;
+
+      return loanedList
+          .map((loanedRecord) => Record.fromData(loanedRecord.data))
+          .toList();
+    } catch (e) {
+      return null;
+    }
+  }
 }
