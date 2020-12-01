@@ -1,6 +1,6 @@
 # iou
 
-A new Flutter project.
+Cross-platform mobile app that helps user keeps track of the money they have loaned to friends, or money they owe.
 
 ## Getting Started
 
